@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<style type="text/css">
+
+		* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Georgia, serif;
+            background-color: #f7f4ed;
+            color: #18352b;
+            opacity: 0;
+            animation: pageLoad 0.8s ease forwards;
+        }
+
+
+        header {
+            height: 85px;
+            background-color: #f7f4ed;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 70px;
+            border-bottom: 1px solid #ddd6c8;
+        }
+
+        .logo h2 {
+            font-size: 30px;
+            font-weight: normal;
+            letter-spacing: 5px;
+            color: #18352b;
+            text-align: center;
+        }
+
+        .logo p {
+            color: #b58b3c;
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            letter-spacing: 4px;
+            text-align: center;
+            margin-top: 3px;
+        }
+
+        nav {
+            display: flex;
+            gap: 32px;
+        }
+
+        nav a {
+    color: #18352b;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+
+    position: relative;
+    padding-bottom: 6px;
+    transition: color 0.3s ease;
+    }
+
+    nav a::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 1px;
+    background-color: #b58b3c;
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+    width: 100%;
+    }
+
+        nav a:hover {
+            color: #b58b3c;
+        }
+
+        nav a.active {
+        color: #b58b3c;
+        }
+
+        .reservation-btn {
+            background-color: #18352b;
+            color: white;
+            text-decoration: none;
+            padding: 14px 22px;
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            border-radius: 25px;
+        }
+
+        .reservation-btn {
+        transition: all 0.3s ease;
+    }
+
+    .reservation-btn:hover {
+        background-color: #b58b3c;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(181, 139, 60, 0.25);
+    }
+
+
+        .reservation-hero {
+            min-height: 400px;
+
+            background-image:
+                linear-gradient(
+                    rgba(24, 53, 43, 0.72),
+                    rgba(24, 53, 43, 0.72)
+                ),
+                url("./dining-atmosphere.jpg");
+
+            background-size: cover;
+            background-position: center;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+            padding: 60px 30px;
+        }
+
+        .reservation-hero-content {
+            max-width: 700px;
+        }
+
+        .reservation-hero span {
+            color: #d4a957;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 5px;
+        }
+
+        .reservation-hero h1 {
+            color: white;
+            font-size: 58px;
+            font-weight: normal;
+            margin: 18px 0;
+        }
+
+        .reservation-hero p {
+            color: #eeeeee;
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+
+        .reservation-area {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 70px;
+            max-width: 1200px;
+            margin: auto;
+            padding: 100px 40px;
+        }
+
+
+        .reservation-info {
+            padding-top: 20px;
+        }
+
+        .reservation-info .label {
+            color: #b58b3c;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+        }
+
+        .reservation-info h2 {
+            color: #18352b;
+            font-size: 44px;
+            font-weight: normal;
+            line-height: 1.15;
+            margin-bottom: 25px;
+        }
+
+        .reservation-info > p {
+            color: #68736d;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 35px;
+        }
+
+        .info-item {
+            border-top: 1px solid #ddd6c8;
+            padding: 18px 0;
+        }
+
+        .info-item h3 {
+            color: #18352b;
+            font-size: 17px;
+            font-weight: normal;
+            margin-bottom: 7px;
+        }
+
+        .info-item p {
+            color: #68736d;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+
+        .reservation-form-box {
+            background-color: white;
+            padding: 45px;
+            box-shadow: 0 15px 45px rgba(24, 53, 43, 0.10);
+        }
+
+        .reservation-form-box h2 {
+            color: #18352b;
+            font-size: 30px;
+            font-weight: normal;
+            margin-bottom: 8px;
+        }
+
+        .form-subtitle {
+            color: #7a837e;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            margin-bottom: 30px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #18352b;
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            border: 1px solid #d9d4c9;
+            background-color: #faf9f5;
+            padding: 13px 14px;
+            color: #18352b;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #b58b3c;
+        }
+
+        .form-group textarea {
+            height: 110px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            border: none;
+            background-color: #18352b;
+            color: white;
+            padding: 17px;
+            cursor: pointer;
+
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #b58b3c;
+        }
+
+
+        .success-message {
+            display: none;
+            margin-top: 20px;
+            padding: 18px;
+            background-color: #edf3ef;
+            border-left: 3px solid #b58b3c;
+
+            color: #18352b;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+
+        footer {
+            background-color: #102b22;
+            color: white;
+            padding: 70px 80px 25px;
+            text-align: center;
+        }
+
+        .footer-logo h2 {
+            font-size: 30px;
+            font-weight: normal;
+            letter-spacing: 5px;
+        }
+
+        .footer-logo p {
+            color: #d4a957;
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            letter-spacing: 4px;
+            margin-top: 5px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 35px;
+            margin: 40px 0 30px;
+        }
+
+        .footer-links a {
+            color: #eeeeee;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+        }
+
+        .footer-links a:hover {
+            color: #d4a957;
+        }
+
+        .footer-info {
+            color: #b8c0bb;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            line-height: 1.8;
+            margin-bottom: 45px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #365247;
+            padding-top: 20px;
+            color: #89978f;
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            letter-spacing: 1px;
+        }
+
+
+        @media (max-width: 900px) {
+
+            header {
+                padding: 20px 30px;
+            }
+
+            nav {
+                gap: 15px;
+            }
+
+            .reservation-btn {
+                display: none;
+            }
+
+            .reservation-area {
+                grid-template-columns: 1fr;
+                gap: 50px;
+                padding: 70px 40px;
+            }
+
+            footer {
+                padding: 60px 30px 25px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                height: auto;
+                flex-direction: column;
+                gap: 20px;
+                padding: 25px 20px;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 15px;
+            }
+
+            .reservation-hero {
+                min-height: 360px;
+            }
+
+            .reservation-hero h1 {
+                font-size: 40px;
+            }
+
+            .reservation-area {
+                padding: 60px 25px;
+            }
+
+            .reservation-info h2 {
+                font-size: 36px;
+            }
+
+            .reservation-form-box {
+                padding: 28px 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+        }
+
+        @keyframes pageLoad {
+        from {
+        opacity: 0;
+        transform: translateY(8px);
+        }
+
+        to {
+        opacity: 1;
+        transform: translateY(0);
+        }
+        }
+
+        #topBtn {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+
+    width: 45px;
+    height: 45px;
+
+    border: 1px solid #d4a957;
+    border-radius: 50%;
+
+    background-color: #18352b;
+    color: #d4a957;
+
+    font-size: 20px;
+    cursor: pointer;
+
+    display: none;
+    z-index: 1000;
+
+    transition: all 0.3s ease;
+}
+
+#topBtn:hover {
+    background-color: #d4a957;
+    color: white;
+    transform: translateY(-3px);
+}
+		
+	</style>
+</head>
+<body>
+
+	<header>
+
+        <div class="logo">
+            <div>
+                <h2>ÉLÉVÉRA</h2>
+                <p>FINE DINING</p>
+            </div>
+        </div>
+
+        <nav>
+            <a href="home.html">HOME</a>
+            <a href="menu.html">MENU</a>
+            <a href="about.html">OUR STORY</a>
+            <a href="gallery.html">GALLERY</a>
+            <a href="reservation.html" class="active">RESERVATION</a>
+        </nav>
+
+        <a href="reservation.html" class="reservation-btn">
+            RESERVE A TABLE
+        </a>
+
+    </header>
+
+
+    <section class="reservation-hero">
+
+        <div class="reservation-hero-content">
+
+            <span>YOUR TABLE AWAITS</span>
+
+            <h1>Reserve Your Evening.</h1>
+
+            <p>
+                Join us at ÉLÉVÉRA for an unforgettable evening
+                of exceptional cuisine, elegant surroundings
+                and impeccable hospitality.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <section class="reservation-area">
+
+
+        <div class="reservation-info">
+
+            <p class="label">THE ÉLÉVÉRA EXPERIENCE</p>
+
+            <h2>
+                An Evening<br>
+                Worth Remembering.
+            </h2>
+
+            <p>
+                Every visit to ÉLÉVÉRA is carefully crafted around
+                exceptional food, thoughtful service and an
+                atmosphere designed for memorable moments.
+            </p>
+
+
+            <div class="info-item">
+
+                <h3>Opening Hours</h3>
+
+                <p>
+                    Monday – Sunday<br>
+                    6:00 PM – 11:00 PM
+                </p>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <h3>Location</h3>
+
+                <p>
+                    123 Waterfront Avenue<br>
+                    ÉLÉVÉRA Fine Dining
+                </p>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <h3>Reservations</h3>
+
+                <p>
+                    +1 234 567 890<br>
+                    reservations@elevera.com
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="reservation-form-box">
+
+            <h2>Reserve a Table</h2>
+
+            <p class="form-subtitle">
+                Please complete the details below.
+            </p>
+
+
+            <form id="reservationForm">
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="name">
+                            FULL NAME
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            placeholder="Your name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            EMAIL ADDRESS
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Your email"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="phone">
+                            PHONE NUMBER
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="phone"
+                            placeholder="Your phone number"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="guests">
+                            GUESTS
+                        </label>
+
+                        <select id="guests" required>
+
+                            <option value="">
+                                Select guests
+                            </option>
+
+                            <option>1 Guest</option>
+                            <option>2 Guests</option>
+                            <option>3 Guests</option>
+                            <option>4 Guests</option>
+                            <option>5 Guests</option>
+                            <option>6 Guests</option>
+                            <option>7+ Guests</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="date">
+                            DATE
+                        </label>
+
+                        <input
+                            type="date"
+                            id="date"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="time">
+                            TIME
+                        </label>
+
+                        <input
+                            type="time"
+                            id="time"
+                            min="18:00"
+                            max="23:00"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="occasion">
+                        OCCASION
+                    </label>
+
+                    <select id="occasion">
+
+                        <option value="">
+                            Select an occasion
+                        </option>
+
+                        <option>Regular Dining</option>
+                        <option>Birthday</option>
+                        <option>Anniversary</option>
+                        <option>Family Celebration</option>
+                        <option>Business Dinner</option>
+                        <option>Special Occasion</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="message">
+                        SPECIAL REQUESTS
+                    </label>
+
+                    <textarea
+                        id="message"
+                        placeholder="Tell us about any special requests..."
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="submit-btn"
+                >
+                    REQUEST RESERVATION →
+                </button>
+
+
+                <div
+                    class="success-message"
+                    id="successMessage"
+                >
+                    <strong>Thank you.</strong><br>
+                    Your reservation request has been received.
+                    Our team will contact you to confirm your table.
+                </div>
+
+            </form>
+
+        </div>
+
+    </section>
+
+    <footer>
+
+        <div class="footer-logo">
+
+            <h2>ÉLÉVÉRA</h2>
+
+            <p>FINE DINING</p>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <a href="home.html">HOME</a>
+            <a href="menu.html">MENU</a>
+            <a href="about.html">OUR STORY</a>
+            <a href="gallery.html">GALLERY</a>
+            <a href="reservation.html">RESERVATION</a>
+
+        </div>
+
+
+        <div class="footer-info">
+
+            <p>123 Waterfront Avenue</p>
+
+            <p>
+                Open Daily · 6:00 PM – 11:00 PM
+            </p>
+
+            <p>
+                +1 234 567 890
+            </p>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <p>
+                © 2026 ÉLÉVÉRA. ALL RIGHTS RESERVED.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <script>
+
+        document
+            .getElementById("reservationForm")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+                document
+                    .getElementById("successMessage")
+                    .style.display = "block";
+
+                this.reset();
+
+            });
+
+    </script>
+<button id="topBtn" onclick="scrollToTop()">↑</button>
+<script>
+    const topBtn = document.getElementById("topBtn");
+
+    window.addEventListener("scroll", function() {
+        if (window.scrollY > 400) {
+            topBtn.style.display = "block";
+        } else {
+            topBtn.style.display = "none";
+        }
+    });
+
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+</script>
+</body>
+</html>
